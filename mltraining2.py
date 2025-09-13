@@ -1,12 +1,3 @@
-# aquaintel_ml_training.py
-
-"""
-AquaIntel ML Training Script – Prototype using Kaggle DWLR 2023 Dataset
-Filename: DWLR_Dataset_2023.csv
-Column names expected exactly:
-  Date, Water_Level_m, Temperature_C, Rainfall_mm, pH, Dissolved_Oxygen_mg_L
-"""
-
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
@@ -16,8 +7,6 @@ from sklearn.model_selection import train_test_split
 import joblib
 import datetime
 from math import sqrt
-
-print("=== AQUAINTEL TRAINING – KAGGLE DWLR PROTOTYPE ===")
 
 # 1. Load dataset
 print("Loading DWLR_Dataset_2023.csv...")
@@ -103,12 +92,12 @@ def predict_crisis(model, current_features, critical=2.0, horizon=45):
 
 def format_message(days, loc="Location"):
     if days is None:
-        return f"✅ {loc} water stable for next 45 days."
+        return f"{loc} water stable for next 45 days."
     if days <= 7:
-        return f"🚨 URGENT: {loc} has {days} days of water left!"
+        return f"URGENT: {loc} has {days} days of water left!"
     if days <= 15:
-        return f"⚠️ WARNING: {loc} has {days} days left."
-    return f"📊 {loc} has {days} days of water left."
+        return f"WARNING: {loc} has {days} days left."
+    return f"{loc} has {days} days of water left."
 
 # 7. Save model and metadata
 print("Saving model to aquaintel_model.pkl...")
@@ -169,5 +158,4 @@ test_out = aquaintel_predict_api(
     current_wl=sample_wl
 )
 print(test_out)
-
-print("\n✅ Training complete. Model saved.")
+print("\nTraining complete. Model saved.")
